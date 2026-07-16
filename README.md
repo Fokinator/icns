@@ -1,9 +1,12 @@
 ICNS Utils
 ===
-A pure and lightweight Java implementation of tools for working with [Apple Icon Image format](https://en.wikipedia.org/wiki/Apple_Icon_Image_format) (`.icns`) icons.
+A pure Java lightweight implementation of tools for working with [Apple Icon Image format](https://en.wikipedia.org/wiki/Apple_Icon_Image_format) (`.icns`) icons.
 
-This is a fork of https://github.com/gino0631/icns (without the Maven ICNS generator plugin) that removes I/O operations 
-where they are unnecessary/wasteful, fixes the architecture, adds missing record types and removes runtime dependencies.
+This is a fork of https://github.com/gino0631/icns (without the Maven ICNS generator plugin) with a redesigned architecture:
+* Immutable core without hidden and wasteful disk I/O.
+* Separated encoder/decoder utilities to follow SRP and ISP.
+* Full support for nested ICNS and metadata records (except TOC since it copies other records' metadata).
+* No runtime dependencies.
 
 ## Key features
 1. `IcnsIcons` - represents an ICNS object.
