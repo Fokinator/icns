@@ -1,60 +1,35 @@
-# ICNS
-[![Build Status](https://api.travis-ci.com/gino0631/icns.svg?branch=master)](https://app.travis-ci.com/gino0631/icns)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.gino0631/icns-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.gino0631/icns-maven-plugin)
+ICNS Utils
+===
+A pure and lightweight Java implementation of tools for working with [Apple Icon Image format](https://en.wikipedia.org/wiki/Apple_Icon_Image_format) (`.icns`) icons.
 
-A pure Java implementation of tools for working with [Apple Icon Image format](https://en.wikipedia.org/wiki/Apple_Icon_Image_format) icons.
+This is a fork of https://github.com/gino0631/icns (without the Maven ICNS generator plugin) that removes I/O operations 
+where they are unnecessary/wasteful, fixes the architecture, adds missing record types and removes runtime dependencies.
 
-# Requirements
-* Maven 3
-* Java 8
+## Key features
+1. `IcnsIcons` - represents an ICNS object.
+2. `IcnsRecord` - represents a single ICNS record (type + data).
+3. `IcnsType` - represents an ICNS record type (icon, nested ICNS object, metadata, etc.).
+4. `IcnsDecoder` - loads and parses ICNS objects.
+5. `IcnsEncoder` - saves ICNS objects.
 
-# Usage
-The tools consist of a Java library and plugins for build systems (currently, only Maven is supported).
 
-## Maven plugin
-The first step is to add the plugin to your project:
+## To use
+
+Add the dependency to your project:
+* Maven:
 ```xml
-<project>
-  ...
-  <build>
-    <!-- To define the plugin version in your parent POM -->
-    <pluginManagement>
-        <plugin>
-          <groupId>com.github.gino0631</groupId>
-          <artifactId>icns-maven-plugin</artifactId>
-          <version>...</version>
-        </plugin>
-        ...
-      </plugins>
-    </pluginManagement>
-    <!-- To use the plugin goals in your POM or parent POM -->
-    <plugins>
-      <plugin>
-        <groupId>com.github.gino0631</groupId>
-        <artifactId>icns-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>create-macosx-icons</id>
-            <phase>generate-resources</phase>
-            <goals><goal>icns</goal></goals>
-            <configuration>
-              <outputFile>${project.build.directory}/product/macosx-x64/Applications/${product.name}.app/Contents/Resources/Main.icns</outputFile>
-              <icons>
-                <icon>icons/main_window_128.png</icon>
-              </icons>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    ...
-    </plugins>
-    ...
-  </build>
-  ...
-</project>
+<dependency>
+    <groupId>net.fokinatorr</groupId>
+    <artifactId>icns</artifactId>
+    <version>0.1-beta</version>
+</dependency>
+```
+* Gradle (Groovy DSL):
+```groovy
+implementation 'net.fokinatorr:icns:0.1-beta'
 ```
 
-It is necessary to specify `icons` and `outputFile` parameters, which define source icon set to use, and an ICNS file to produce.
-
-## Standalone library
-Add a dependency on `com.github.gino0631:icns-core` to your project, and use `IcnsIcons`, `IcnsBuilder`, and `IcnsParser` classes.
+Also add this line to your `module-info.java`, if you have one:
+```
+requires net.fokinatorr.icns;
+```
